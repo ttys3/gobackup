@@ -24,15 +24,16 @@ var (
 
 // ModelConfig for special case
 type ModelConfig struct {
-	Name         string
-	DumpPath     string
-	CompressWith SubConfig
-	EncryptWith  SubConfig
-	StoreWith    SubConfig
-	Archive      *viper.Viper
-	Databases    []SubConfig
-	Storages     []SubConfig
-	Viper        *viper.Viper
+	Name              string
+	DumpPath          string
+	CompressWith      SubConfig
+	EncryptWith       SubConfig
+	StoreWith         SubConfig
+	Archive           *viper.Viper
+	SplitInToChunksOf int
+	Databases         []SubConfig
+	Storages          []SubConfig
+	Viper             *viper.Viper
 }
 
 // SubConfig sub config info
@@ -106,6 +107,7 @@ func loadModel(key string) (model ModelConfig) {
 	}
 
 	model.Archive = model.Viper.Sub("archive")
+	model.SplitInToChunksOf = model.Viper.GetInt("split_into_chunks_of")
 
 	loadDatabasesConfig(&model)
 	loadStoragesConfig(&model)

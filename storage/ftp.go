@@ -4,9 +4,10 @@ import (
 	"os"
 	"path"
 	// "crypto/tls"
-	"github.com/huacnlee/gobackup/logger"
-	"github.com/secsy/goftp"
+
 	"time"
+
+	"github.com/secsy/goftp"
 )
 
 // FTP storage
@@ -56,7 +57,6 @@ func (ctx *FTP) close() {
 }
 
 func (ctx *FTP) upload(fileKey string) (err error) {
-	logger.Info("-> Uploading...")
 	_, err = ctx.client.Stat(ctx.path)
 	if os.IsNotExist(err) {
 		if _, err := ctx.client.Mkdir(ctx.path); err != nil {
@@ -76,7 +76,6 @@ func (ctx *FTP) upload(fileKey string) (err error) {
 		return err
 	}
 
-	logger.Info("Store successed")
 	return nil
 }
 

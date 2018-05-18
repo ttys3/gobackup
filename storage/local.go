@@ -1,9 +1,9 @@
 package storage
 
 import (
-	"github.com/huacnlee/gobackup/helper"
-	"github.com/huacnlee/gobackup/logger"
 	"path"
+
+	"github.com/huacnlee/gobackup/helper"
 )
 
 // Local storage
@@ -28,7 +28,6 @@ func (ctx *Local) upload(fileKey string) (err error) {
 	if err != nil {
 		return err
 	}
-	logger.Info("Store successed", ctx.destPath)
 	return nil
 }
 

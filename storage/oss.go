@@ -1,9 +1,10 @@
 package storage
 
 import (
+	"path"
+
 	"github.com/aliyun/aliyun-oss-go-sdk/oss"
 	"github.com/huacnlee/gobackup/logger"
-	"path"
 )
 
 // OSS - Aliyun OSS storage
@@ -71,13 +72,11 @@ func (ctx *OSS) close() {
 func (ctx *OSS) upload(fileKey string) (err error) {
 	remotePath := path.Join(ctx.path, fileKey)
 
-	logger.Info("-> Uploading OSS...")
 	err = ctx.client.UploadFile(remotePath, ctx.archivePath, ossPartSize, oss.Routines(4))
 
 	if err != nil {
 		return err
 	}
-	logger.Info("Success")
 
 	return nil
 }

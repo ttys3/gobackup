@@ -2,14 +2,14 @@ package storage
 
 import (
 	"fmt"
+	"os"
+	"path"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
-	"github.com/huacnlee/gobackup/logger"
-	"os"
-	"path"
 )
 
 // S3 - Amazon S3 storage
@@ -69,13 +69,11 @@ func (ctx *S3) upload(fileKey string) (err error) {
 		Body:   f,
 	}
 
-	logger.Info("-> S3 Uploading...")
-	result, err := ctx.client.Upload(input)
+	_, err = ctx.client.Upload(input)
 	if err != nil {
 		return fmt.Errorf("failed to upload file, %v", err)
 	}
 
-	logger.Info("=>", result.Location)
 	return nil
 }
 

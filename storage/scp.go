@@ -1,11 +1,12 @@
 package storage
 
 import (
-	"github.com/huacnlee/gobackup/helper"
-	"golang.org/x/crypto/ssh"
 	"os"
 	"path"
 	"time"
+
+	"github.com/huacnlee/gobackup/helper"
+	"golang.org/x/crypto/ssh"
 	// "crypto/tls"
 	"github.com/bramvdbogaerde/go-scp"
 	"github.com/bramvdbogaerde/go-scp/auth"
@@ -83,10 +84,8 @@ func (ctx *SCP) upload(fileKey string) (err error) {
 	defer file.Close()
 
 	remotePath := path.Join(ctx.path, fileKey)
-	logger.Info("-> scp", remotePath)
 	ctx.client.CopyFromFile(*file, remotePath, "0655")
 
-	logger.Info("Store successed")
 	return nil
 }
 
@@ -98,7 +97,6 @@ func (ctx *SCP) delete(fileKey string) (err error) {
 	defer ctx.client.Session.Close()
 
 	remotePath := path.Join(ctx.path, fileKey)
-	logger.Info("-> remove", remotePath)
 	err = ctx.client.Session.Run("rm " + remotePath)
 	return
 }

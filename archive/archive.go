@@ -2,11 +2,12 @@ package archive
 
 import (
 	"fmt"
+	"path"
+	"path/filepath"
+
 	"github.com/huacnlee/gobackup/config"
 	"github.com/huacnlee/gobackup/helper"
 	"github.com/huacnlee/gobackup/logger"
-	"path"
-	"path/filepath"
 )
 
 // Run archive

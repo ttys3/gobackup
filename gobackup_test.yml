@@ -11,6 +11,7 @@ models:
       password: 123456
       salt: false
       openssl: true
+    split_into_chunks_of: 1
     store_with:
       type: local
       keep: 10

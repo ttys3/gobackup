@@ -3,6 +3,8 @@ package main
 import (
 	"os"
 
+	"github.com/huacnlee/gobackup/splitter"
+
 	"github.com/huacnlee/gobackup/archive"
 	"github.com/huacnlee/gobackup/compressor"
 	"github.com/huacnlee/gobackup/config"
@@ -21,7 +23,7 @@ type Model struct {
 func (ctx Model) perform() {
 	logger.Info("======== " + ctx.Config.Name + " ========")
 	logger.Info("WorkDir:", ctx.Config.DumpPath+"\n")
-	defer ctx.cleanup()
+	// defer ctx.cleanup()
 
 	err := database.Run(ctx.Config)
 	if err != nil {
@@ -49,7 +51,9 @@ func (ctx Model) perform() {
 		return
 	}
 
-	err = storage.Run(ctx.Config, archivePath)
+	archivePaths, err := splitter.Run(archivePath, ctx.Config)
+
+	err = storage.Run(ctx.Config, archivePaths)
 	if err != nil {
 		logger.Error(err)
 		return
